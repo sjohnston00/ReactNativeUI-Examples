@@ -18,8 +18,9 @@ import {
   TouchableHighlight,
   TouchableOpacity
 } from "react-native-gesture-handler";
+import { ReactNativeUIDrawer, NativeDrawer } from "./components/Drawer";
 
-type Habit = {
+export type Habit = {
   name: string;
   colour: string;
 };
@@ -100,54 +101,8 @@ export default function App() {
         <StatusBar style='auto' />
         {/* Works on these views being swipeapple left and right for deletion */}
         {/* https://wix.github.io/react-native-ui-lib/docs/components/basic/Drawer */}
-        {habits.length > 0 ? (
-          <View>
-            {habits.map((habit, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  backgroundColor: habit.colour,
-                  borderRadius: 10,
-                  padding: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginVertical: 10,
-                  borderColor: Colors.grey1,
-                  borderWidth: 2
-                }}
-                onPress={() => {
-                  Alert.alert(`${habit.name}\nColour: ${habit.colour}`);
-                }}
-                onLongPress={() => {
-                  Alert.alert(
-                    `${habit.name}`,
-                    `Are you sure you want to delete ${habit.name}?`,
-                    [
-                      {
-                        text: "Yes",
-                        style: "default"
-                      },
-                      {
-                        text: "No",
-                        style: "destructive"
-                      }
-                    ]
-                  );
-                }}>
-                <Text
-                  white
-                  text30BL
-                  style={{
-                    textShadowColor: Colors.grey1,
-                    textShadowRadius: 2,
-                    textShadowOffset: { width: 0, height: 0 }
-                  }}>
-                  {habit.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        ) : null}
+        <ReactNativeUIDrawer habits={habits} />
+        <NativeDrawer habits={habits} />
       </ScrollView>
     </TouchableWithoutFeedback>
   );
